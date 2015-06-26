@@ -4,6 +4,12 @@ implements chunk-based JSON parsing and generation in Objective-C.
 
 [![Build Status](https://travis-ci.org/stig/json-framework.png?branch=master)](https://travis-ci.org/stig/json-framework)
 
+Fork Info:
+=========
+This fork contains minor modifications which allow to set the NSRange information from the source 
+json string on the parsed result data structure. So that one can easily determine from a cursor location
+within the original json which data structure this resolves to
+
 Features
 ========
 
