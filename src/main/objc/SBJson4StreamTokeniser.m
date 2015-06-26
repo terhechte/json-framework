@@ -298,9 +298,14 @@
     return tok;
 }
 
-
 - (sbjson4_token_t)getToken:(char **)token length:(NSUInteger *)length {
+    return [self getToken:token length:length start:NULL];
+}
+
+- (sbjson4_token_t)getToken:(char**)token length:(NSUInteger*)length start:(NSUInteger*)start {
     [self skipWhitespace];
+    
+    if (start != NULL)*start = index;
     NSUInteger copyOfIndex = index;
 
     unichar ch;
@@ -382,7 +387,7 @@
             break;
         }
     }
-
+    
     if (tok == sbjson4_token_eof) {
         // We ran out of bytes before we could finish parsing the current token.
         // Back up to the start & wait for more data.

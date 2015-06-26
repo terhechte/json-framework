@@ -151,7 +151,8 @@
 
             char *token;
             NSUInteger token_len;
-            sbjson4_token_t tok = [tokeniser getToken:&token length:&token_len];
+            NSUInteger start;
+            sbjson4_token_t tok = [tokeniser getToken:&token length:&token_len start:&start];
             
             switch (tok) {
                 case sbjson4_token_eof:
@@ -225,9 +226,10 @@
 
                         case sbjson4_token_string: {
                             NSString *string = [[NSString alloc] initWithBytes:token length:token_len encoding:NSUTF8StringEncoding];
-                            if ([_state needKey])
-                                [_delegate parserFoundObjectKey:string];
-                            else
+                            if ([_state needKey]) {
+//                                NSLog(@"found key: %@\t\t%li\t\t-\t\t%li", string, start, token_len);
+                                [_delegate parserFoundObjectKey:string range: NSMakeRange(start, token_len)];
+                            } else
                                 [_delegate parserFoundString:string];
                             [_state parser:self shouldTransitionTo:tok];
                             break;
@@ -235,9 +237,10 @@
 
                         case sbjson4_token_encoded: {
                             NSString *string = [self decodeStringToken:token length:token_len];
-                            if ([_state needKey])
-                                [_delegate parserFoundObjectKey:string];
-                            else
+                            if ([_state needKey]) {
+                                // store the object key with the range
+                                [_delegate parserFoundObjectKey:string range: NSMakeRange(start, token_len)];
+                            } else
                                 [_delegate parserFoundString:string];
                             [_state parser:self shouldTransitionTo:tok];
                             break;

@@ -54,7 +54,7 @@ typedef enum {
 - (void)parserFoundObjectStart;
 
 /// Called when object key is found
-- (void)parserFoundObjectKey:(NSString *)key;
+- (void)parserFoundObjectKey:(NSString *)key_ range:(NSRange)range;
 
 /// Called when object end is found
 - (void)parserFoundObjectEnd;

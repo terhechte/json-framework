@@ -35,6 +35,7 @@ typedef enum {
 
 - (void)appendData:(NSData*)data_;
 - (sbjson4_token_t)getToken:(char**)tok length:(NSUInteger*)len;
+- (sbjson4_token_t)getToken:(char**)tok length:(NSUInteger*)len start:(NSUInteger*)start;
 
 @end
 

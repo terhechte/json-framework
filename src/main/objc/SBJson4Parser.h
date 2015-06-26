@@ -56,6 +56,11 @@ typedef void (^SBJson4ErrorBlock)(NSError* error);
  */
 typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
+/**
+ Block used to get notified for the text range positions elements
+ */
+typedef void (^SBJson4ProcessKeyword)(NSString* keyword, NSString* keypath, NSRange range);
+
 
 /**
  Parse one or more chunks of JSON data.
@@ -244,5 +249,7 @@ typedef id (^SBJson4ProcessBlock)(id item, NSString* path);
 
  */
 - (SBJson4ParserStatus)parse:(NSData*)data;
+
+@property (copy) SBJson4ProcessKeyword keywordBlock;
 
 @end

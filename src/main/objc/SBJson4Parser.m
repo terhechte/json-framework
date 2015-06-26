@@ -196,8 +196,11 @@ typedef enum {
     currentType = SBJson4ChunkObject;
 }
 
-- (void)parserFoundObjectKey:(NSString *)key_ {
+- (void)parserFoundObjectKey:(NSString *)key_ range:(NSRange)range {
     [keyStack addObject:key_];
+    if (self.keywordBlock) {
+        self.keywordBlock(key_, [self pathString], range);
+    }
 }
 
 - (void)parserFoundObjectEnd {
